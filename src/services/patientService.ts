@@ -1,13 +1,13 @@
-import patientData from '../../data/patients.json';
+import patientEntries from '../../data/patients';
 import { PatientEdited, Patient, NewPatient } from '../types';
 import { v4 as uuid } from 'uuid';
 
 const getPatients = (): Patient[] => {
-    return patientData;
+    return patientEntries;
 };
 
 const getEditedPatients = (): PatientEdited[] => {
-    return patientData.map(({id, name, dateOfBirth, gender, occupation}) => ({
+    return patientEntries.map(({id, name, dateOfBirth, gender, occupation}) => ({
         id,
         name, 
         dateOfBirth,
@@ -21,7 +21,8 @@ const addPatient = (entry: NewPatient): Patient => {
         id: uuid(),
         ...entry
     };
-    patientData.push(newPatient);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    patientEntries.push(newPatient);
     return newPatient;
 };
 
