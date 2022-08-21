@@ -1,11 +1,17 @@
 import express from 'express';
-import { getEditedPatients, addPatient } from '../services/patientService';
+import { getEditedPatients, addPatient,getOnePatient } from '../services/patientService';
 import { toNewPatientEntry } from '../utils';
 
 const router = express.Router();
 
 router.get('/', (_req,res) => {
     res.json(getEditedPatients());
+});
+
+router.get('/:id', (req,res) => {
+    console.log('herere');
+    const id = req.params.id;
+    res.json(getOnePatient(id));
 });
 
 router.post('/',(req,res) => {
@@ -21,13 +27,6 @@ router.post('/',(req,res) => {
         }
         res.status(404).json({error: errorMsg});
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    // const { name, dateOfBirth, ssn, gender, occupation } = req.body;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    // const newPatient = addPatient({name,dateOfBirth,ssn,gender,occupation});
-    // res.json(newPatient);
-
 });
 
 export default router;
